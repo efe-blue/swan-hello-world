@@ -16,9 +16,19 @@ Page({
   getUserInfo(e) {
     swan.login({
       success: () => {
-        this.setData({
-          userInfo: e.detail.userInfo,
-          hasUserInfo: true
+        swan.getUserInfo({
+            success:(res)=> {
+                this.setData({
+                  userInfo: res.userInfo,
+                  hasUserInfo: true
+                });
+            },
+            fail: ()=> {
+              this.setData({
+                userInfo: e.detail.userInfo,
+                hasUserInfo: true
+              });
+            }
         });
       },
       fail: () => {
